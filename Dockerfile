@@ -5,7 +5,6 @@ user root
 ENV INSTALL_DIR=/install
 ENV ONEDRIVE_DIR=/onedrive
 ENV CONFIG_DIR=~/.config/onedrive
-ENV ONEDRIVE_LINUX_VERSION=1.1
 
 WORKDIR ${INSTALL_DIR}
 RUN apt-get update -y &&\
@@ -16,7 +15,9 @@ RUN apt-get update -y &&\
 	apt-get update &&\
 	apt-get install dmd-bin
 
-COPY ./onedrive ${ONEDRIVE_DIR}
+COPY ./src ${ONEDRIVE_DIR}/src
+COPY ./Makefile ${ONEDRIVE_DIR}
+COPY ./onedrive.service ${ONEDRIVE_DIR}
 WORKDIR ${ONEDRIVE_DIR}
 RUN make
 RUN make install
